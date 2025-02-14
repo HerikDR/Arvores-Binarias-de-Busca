@@ -192,17 +192,23 @@ int contarTotalElementos(PONT raiz) {
 
 //------------------------------------------------------------------------------
 // 10) k-ésimo menor
-int kEsimoMenor(PONT raiz, int k) { // retornar o elemento na posicao k quando ordenado na ordem crescente
+int kEsimoMenor(PONT raiz, int k) { 
     if (raiz == NULL)
-        return -1;     // Retorne -1 se não existir
-    int num_esq = contarTotalElementos(raiz->esq) ;// elementos somente do lado esquerdo
-    if (k == num_esq + 1)
-        return raiz->chave;
+        return -1;  // Não existe
+        int num_esq;
+        if (raiz->esq != NULL) {
+            num_esq = contarTotalElementos(raiz->esq);
+        } else{
+            num_esq = 0;
+        }
+    // se o k é menor que o tamanho da esquerda, procure nela
     if (k <= num_esq)
         return kEsimoMenor(raiz->esq, k);
-    else{ // se k for maior que a esquerda, passa pra direita e econtra
-        return kEsimoMenor(raiz->dir, k - (num_esq + 1));
-    }
+    // se o k está no próprio nó
+    if (k <= num_esq + raiz->contador)
+        return raiz->chave;
+    // se n estiver na esquerda, procure na direita
+    return kEsimoMenor(raiz->dir, k - (num_esq + raiz->contador));
 }
 
 //------------------------------------------------------------------------------
