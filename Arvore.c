@@ -234,13 +234,13 @@ PONT lowestCommonAncestor(PONT raiz, int val1, int val2) {
         return NULL;
     if (buscar(raiz, val1) == NULL || buscar(raiz, val2) == NULL)
         return NULL;
-    if (val1 < raiz->chave && val2 < raiz->chave)
+    if (val1 < raiz->chave && val2 < raiz->chave) // se ambos são menores, o lca está na esquerda
         return lowestCommonAncestor(raiz->esq, val1, val2);
-    if (val1 > raiz->chave && val2 > raiz->chave)
+    if (val1 > raiz->chave && val2 > raiz->chave) // se ambos são maiores, está na direita
         return lowestCommonAncestor(raiz->dir, val1, val2);
     if (raiz->chave == val1 || raiz->chave == val2)
         return raiz;
-    return raiz;
+    return raiz; // se nada disso, é a própria raiz
 }
 
 
@@ -418,12 +418,12 @@ int main() {
 
     nLCA = lowestCommonAncestor(raiz, 16, 18);
     if(nLCA) {
-        printf("LCA(16,18) => chave=%d (esperado=15)\n", nLCA->chave);
+        printf("LCA(16,18) => chave=%d (esperado=15)  - Como 16 é filho do 18, o antecessor é o 18\n", nLCA->chave);
     }
 
     nLCA = lowestCommonAncestor(raiz, 5, 18);
     if(nLCA) {
-        printf("LCA(5,18) => chave=%d (esperado=5)\n", nLCA->chave);
+        printf("LCA(5,18) => chave=%d (esperado=5) (?)\n", nLCA->chave);
     }
 
     // Por fim, buscar um LCA com valor inexistente
