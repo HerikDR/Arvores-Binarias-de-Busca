@@ -229,9 +229,18 @@ void imprimirIntervalo(PONT raiz, int min, int max) {
 
 //------------------------------------------------------------------------------
 
-PONT lowestCommonAncestor(PONT raiz, int val1, int val2) { // OPCIONAL
-    // COMPLETAR
-    return NULL;
+PONT lowestCommonAncestor(PONT raiz, int val1, int val2) {
+    if (raiz == NULL)
+        return NULL;
+    if (buscar(raiz, val1) == NULL || buscar(raiz, val2) == NULL)
+        return NULL;
+    if (val1 < raiz->chave && val2 < raiz->chave)
+        return lowestCommonAncestor(raiz->esq, val1, val2);
+    if (val1 > raiz->chave && val2 > raiz->chave)
+        return lowestCommonAncestor(raiz->dir, val1, val2);
+    if (raiz->chave == val1 || raiz->chave == val2)
+        return raiz;
+    return raiz;
 }
 
 
@@ -371,7 +380,7 @@ int main() {
     //                /  \
     //              12(1) 18(1)
     //                    /
-    //                  16(1)
+    //                  16(1) // 16 é filho de 18
     inserir(raiz, 12);
     inserir(raiz, 16);
     inserir(raiz, 3);
