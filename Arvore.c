@@ -129,7 +129,7 @@ PONT removerTodasOcorrencias(PONT raiz, int valor) {
     if (valor < raiz->chave)
         raiz->esq = removerTodasOcorrencias(raiz->esq, valor);
     else if (valor > raiz->chave)
-        raiz->dir = removerTodasOcorrencia(raiz->dir, valor);
+        raiz->dir = removerTodasOcorrencias(raiz->dir, valor);
     else{
         if (raiz->esq == NULL){
             PONT novo = raiz->dir;
@@ -156,7 +156,7 @@ PONT removerTodasOcorrencias(PONT raiz, int valor) {
 // 7) Exibir InOrder
 void exibirInOrder(PONT raiz) {
     if (raiz == NULL)
-        return NULL;
+        return;
     exibirInOrder(raiz->esq);     // Percurso InOrder: esq -> (raiz->chave impresso contador vezes) -> dir
     for (int i = 0; i < raiz->contador; i++){  // percorre todos os nós até o num do contador
         printf("%d ", raiz->chave);
@@ -199,7 +199,7 @@ int kEsimoMenor(PONT raiz, int k) { // retornar o elemento na posicao k quando o
     if (k == num_esq + 1)
         return raiz->chave;
     if (k <= num_esq)
-        return kEsinoMenor(raiz->esq, k);
+        return kEsimoMenor(raiz->esq, k);
     else{ // se k for maior que a esquerda, passa pra direita e econtra
         return kEsimoMenor(raiz->dir, k - (num_esq + 1));
     }
@@ -262,13 +262,13 @@ int main() {
     // InOrder final esperado (antes de quaisquer remoções):
     //     "5 5 5 10 10 15 18"
     //
-    inserir(raiz, 10); 
-    inserir(raiz, 5);
-    inserir(raiz, 15);
-    inserir(raiz, 10); // repetido => contador(10)++
-    inserir(raiz, 5);  // repetido => contador(5)++
-    inserir(raiz, 5);  // repetido => contador(5)++
-    inserir(raiz, 18);
+    raiz = inserir(raiz, 10); 
+    raiz = inserir(raiz, 5);
+    raiz = inserir(raiz, 15);
+    raiz = inserir(raiz, 10); // repetido => contador(10)++
+    raiz = inserir(raiz, 5);  // repetido => contador(5)++
+    raiz = inserir(raiz, 5);  // repetido => contador(5)++
+    raiz = inserir(raiz, 18);
 
     printf("\n--- APÓS INSERIR (10,5,15,10,5,5,18) ---\n");
     printf("InOrder esperado: 5 5 5 10 10 15 18\n");
